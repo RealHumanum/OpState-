@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" font-family="Inter, -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <radialGradient id="glow" cx="28%" cy="22%" r="55%">
+      <stop offset="0%" stop-color="#4c8dff" stop-opacity="0.28" />
+      <stop offset="60%" stop-color="#4c8dff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a313b" />
+      <stop offset="100%" stop-color="#11151a" />
+    </linearGradient>
+  </defs>
+
+  <!-- full square background (so Quick Look renders 1:1, no distortion) -->
+  <rect width="1200" height="1200" fill="#0f1216" />
+  <rect width="1200" height="1200" fill="url(#glow)" />
+
+  <!-- content lives in the centred 1200x630 band (y 285..915); crop extracts it -->
+  <g transform="translate(0 285)">
+    <!-- wordmark -->
+    <g transform="translate(80 60)">
+      <g fill="none" stroke="#4c8dff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" transform="scale(1.5)">
+        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+        <path d="m9 12 2 2 4-4" />
+      </g>
+      <text x="46" y="28" font-size="30" font-weight="700" fill="#e7eaee" letter-spacing="-0.5">Op<tspan fill="#4c8dff">State</tspan></text>
+    </g>
+
+    <!-- headline -->
+    <g transform="translate(80 218)">
+      <text font-size="74" font-weight="700" fill="#e7eaee" letter-spacing="-2">
+        <tspan x="0" y="0">Know what you own.</tspan>
+        <tspan x="0" y="88">Stay ready.</tspan>
+      </text>
+      <text x="2" y="158" font-size="29" font-weight="500" fill="#8b929c">A privacy-first readiness app for iOS &amp; Android.</text>
+    </g>
+
+    <!-- tags -->
+    <g transform="translate(82 540)" font-size="22" font-weight="600" fill="#8b929c">
+      <text x="0" y="0">On-device &amp; encrypted</text>
+      <text x="292" y="0" fill="#3a414b">·</text>
+      <text x="314" y="0">Built in Switzerland</text>
+      <text x="568" y="0" fill="#3a414b">·</text>
+      <text x="590" y="0" fill="#4c8dff">Join the waitlist</text>
+    </g>
+
+    <!-- dashboard mock -->
+    <g transform="translate(800 130)">
+      <rect width="320" height="372" rx="40" fill="url(#phone)" stroke="#2b323c" stroke-width="1.5" />
+      <rect x="14" y="14" width="292" height="344" rx="28" fill="#0f1216" />
+
+      <text x="40" y="68" font-size="25" font-weight="700" fill="#e7eaee">Needs attention</text>
+      <text x="40" y="96" font-size="14" font-weight="500" fill="#8b929c">2 overdue · 4 total</text>
+
+      <g transform="translate(28 118)">
+        <rect width="264" height="56" rx="14" fill="#1a1f26" />
+        <circle cx="26" cy="28" r="6" fill="#e5484d" />
+        <text x="46" y="25" font-size="15" font-weight="600" fill="#e7eaee">Maintenance overdue</text>
+        <text x="46" y="44" font-size="12" fill="#8b929c">Competition Pistol · service</text>
+      </g>
+      <g transform="translate(28 186)">
+        <rect width="264" height="56" rx="14" fill="#1a1f26" />
+        <circle cx="26" cy="28" r="6" fill="#e5484d" />
+        <text x="46" y="25" font-size="15" font-weight="600" fill="#e7eaee">Expired</text>
+        <text x="46" y="44" font-size="12" fill="#8b929c">Hemostatic Gauze</text>
+      </g>
+      <g transform="translate(28 254)">
+        <rect width="264" height="56" rx="14" fill="#1a1f26" />
+        <circle cx="26" cy="28" r="6" fill="#f2a33c" />
+        <text x="46" y="25" font-size="15" font-weight="600" fill="#e7eaee">Expiring soon</text>
+        <text x="46" y="44" font-size="12" fill="#8b929c">CR123 Battery</text>
+      </g>
+      <g transform="translate(28 322)">
+        <rect width="180" height="13" rx="7" fill="#1a1f26" />
+        <circle cx="-1" cy="6" r="6" fill="#4c8dff" />
+      </g>
+    </g>
+  </g>
+</svg>

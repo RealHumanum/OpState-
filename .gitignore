@@ -1,0 +1,9 @@
+# macOS / iCloud noise (this folder is under ~/Documents, which iCloud syncs)
+.DS_Store
+._*
+*.icloud
+Icon?
+
+# editor
+.vscode/
+.idea/
