@@ -9,7 +9,7 @@
       content="A privacy-first readiness app for iOS & Android. Track the gear you rely on — medical, power, documents, firearms — and get one prioritised list of what needs your attention before it fails you. On-device, encrypted, built in Switzerland. Join the waitlist."
     />
     <meta name="theme-color" content="#0f1216" />
-    <link rel="canonical" href="__SITE_URL__/" />
+    <link rel="canonical" href="https://realhumanum.github.io/OpState-/" />
 
     <!-- Open Graph / social cards (matters for Reddit & messaging previews) -->
     <meta property="og:type" content="website" />
@@ -19,8 +19,8 @@
       property="og:description"
       content="One prioritised list of what needs your attention — a spring to replace, ammo running low, a tourniquet or medication about to expire, a permit to renew. Private by default. iOS & Android, coming soon."
     />
-    <meta property="og:url" content="__SITE_URL__/" />
-    <meta property="og:image" content="__SITE_URL__/assets/og-image.png" />
+    <meta property="og:url" content="https://realhumanum.github.io/OpState-/" />
+    <meta property="og:image" content="https://realhumanum.github.io/OpState-/assets/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -29,7 +29,7 @@
       name="twitter:description"
       content="A privacy-first readiness app for the prepared. On-device, encrypted, built in Switzerland. Join the waitlist."
     />
-    <meta name="twitter:image" content="__SITE_URL__/assets/og-image.png" />
+    <meta name="twitter:image" content="https://realhumanum.github.io/OpState-/assets/og-image.png" />
 
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="fonts/inter-regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -354,13 +354,13 @@
               ever — unsubscribe in one click.
             </p>
 
-            <!-- Kit (ConvertKit) custom form.
-                 Replace __KIT_FORM_ID__ with your Kit form's numeric ID (one place; js/waitlist.js
-                 reads the action). Kit uses double opt-in, so subscribers confirm via email. -->
+            <!-- Kit (ConvertKit) custom form — wired to form 9565153 ("Pine form" / OpState
+                 waitlist). Posts email_address + fields[weekly_updates] to Kit; js/waitlist.js
+                 handles the inline success and a native-POST fallback. -->
             <form
               class="wl-form"
               id="waitlist-form"
-              action="https://app.kit.com/forms/__KIT_FORM_ID__/subscriptions"
+              action="https://app.kit.com/forms/9565153/subscriptions"
               method="post"
               novalidate
             >
@@ -385,8 +385,8 @@
 
             <div class="wl-success" id="waitlist-success">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>
-              <h3>Almost there — check your inbox</h3>
-              <p>We've sent a confirmation email. Click the link in it to lock in your spot (and your founder's Pro-for-life).</p>
+              <h3>You're on the list 🎉</h3>
+              <p>We'll email you the moment OpState launches — plus a short build note each week if you opted in. Keep an eye on your inbox (peek in spam, just in case), and your founder's Pro-for-life is locked in.</p>
             </div>
 
             <p class="wl-fine">
