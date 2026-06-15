@@ -1,83 +1,129 @@
-/* Waitlist form — progressive enhancement over a plain Kit (ConvertKit) HTML form.
+/* OpState landing — waitlist capture + tasteful enhancement.
  *
- * With JS: submit via fetch so the visitor stays on the page and sees an inline
- *   "check your inbox" success (Kit uses double opt-in).
- * Without JS, or if the fetch is blocked: the <form> still posts natively to Kit,
- *   which shows its own hosted confirmation page. Either way, signups are captured.
- *
- * The only thing to configure is the form's `action` URL (the Kit form ID) in index.html. */
+ * Waitlist: every <form data-waitlist> (hero + main) posts to the same Kit
+ *   (ConvertKit) form. With JS we submit via fetch and swap in an inline
+ *   "you're on the list" success; without JS (or if blocked) the form posts
+ *   natively to Kit's hosted confirmation. Either way the signup lands.
+ * Plus: scroll-reveal, header elevation on scroll, and a sticky mobile CTA. */
 (function () {
   "use strict";
 
-  var card = document.getElementById("waitlist-card");
-  var form = document.getElementById("waitlist-form");
-  var statusEl = document.getElementById("waitlist-status");
-  var submitBtn = document.getElementById("waitlist-submit");
-  var weekly = document.getElementById("weekly-updates");
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (!form) return;
+  /* ---------- Waitlist forms ---------- */
+  var forms = document.querySelectorAll("form[data-waitlist]");
+  var anySubmitted = false;
 
-  var NOT_CONFIGURED = form.action.indexOf("__KIT_FORM_ID__") !== -1;
+  forms.forEach(function (form) {
+    var wrap = form.closest("[data-wl]") || form.parentNode;
+    var statusEl = form.querySelector("[data-wl-status]");
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var weekly = form.querySelector('input[name="fields[weekly_updates]"]');
+    var notConfigured = form.action.indexOf("__KIT_FORM_ID__") !== -1;
 
-  function setStatus(msg, kind) {
-    if (!statusEl) return;
-    statusEl.textContent = msg || "";
-    statusEl.className = "wl-status" + (kind ? " " + kind : "");
-  }
-
-  function showSuccess() {
-    if (card) card.classList.add("is-submitted");
-  }
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    setStatus("");
-
-    var emailField = form.querySelector('input[name="email_address"]');
-    var email = emailField ? emailField.value.trim() : "";
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setStatus("Please enter a valid email address.", "err");
-      if (emailField) emailField.focus();
-      return;
+    function setStatus(msg, kind) {
+      if (!statusEl) return;
+      statusEl.textContent = msg || "";
+      statusEl.className = "wl-status" + (kind ? " " + kind : "");
     }
 
-    if (NOT_CONFIGURED) {
-      // Local/dev safety net before the Kit form ID is wired in.
-      setStatus(
-        "Waitlist backend isn't connected yet — set your Kit form ID in index.html.",
-        "err"
-      );
-      return;
-    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      setStatus("");
 
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Joining…";
-    }
+      var emailField = form.querySelector('input[name="email_address"]');
+      var email = emailField ? emailField.value.trim() : "";
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setStatus("Please enter a valid email address.", "err");
+        if (emailField) emailField.focus();
+        return;
+      }
+      if (notConfigured) {
+        setStatus("Waitlist backend isn't connected yet — set your Kit form ID.", "err");
+        return;
+      }
 
-    var data = new FormData(form);
-    // Be explicit about the weekly-updates choice so Kit always records yes/no.
-    data.set("fields[weekly_updates]", weekly && weekly.checked ? "yes" : "no");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.dataset.label = submitBtn.textContent;
+        submitBtn.textContent = "Joining…";
+      }
 
-    fetch(form.action, {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" },
-      mode: "cors",
-    })
-      .then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.json().catch(function () {
-          return {};
+      var data = new FormData(form);
+      data.set("fields[weekly_updates]", weekly && weekly.checked ? "yes" : "no");
+
+      fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" }, mode: "cors" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json().catch(function () { return {}; });
+        })
+        .then(function () {
+          anySubmitted = true;
+          if (wrap && wrap.classList) wrap.classList.add("is-submitted");
+          hideMobileCta();
+        })
+        .catch(function () {
+          // CORS/network hiccup — native submit so the signup still lands.
+          form.submit();
         });
-      })
-      .then(function () {
-        showSuccess();
-      })
-      .catch(function () {
-        // CORS/network hiccup — fall back to a native submit so the signup still lands.
-        form.submit();
-      });
+    });
   });
+
+  /* ---------- Scroll reveal ---------- */
+  var revealEls = document.querySelectorAll(".reveal, .reveal-stagger");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
+    );
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- Header elevation ---------- */
+  var header = document.getElementById("siteHeader");
+  function onScrollHeader() {
+    if (!header) return;
+    header.classList.toggle("scrolled", window.scrollY > 8);
+  }
+  onScrollHeader();
+  window.addEventListener("scroll", onScrollHeader, { passive: true });
+
+  /* ---------- Sticky mobile CTA ---------- */
+  var cta = document.getElementById("mobileCta");
+  var hero = document.querySelector(".hero");
+  var waitlist = document.getElementById("waitlist");
+  var waitlistVisible = false;
+  var heroVisible = true;
+
+  function hideMobileCta() { if (cta) cta.classList.remove("show"); }
+
+  if (cta && hero) {
+    if ("IntersectionObserver" in window) {
+      // Track whether the final waitlist section is on screen.
+      if (waitlist) {
+        new IntersectionObserver(function (entries) {
+          waitlistVisible = entries[0].isIntersecting;
+          updateCta();
+        }, { threshold: 0.15 }).observe(waitlist);
+      }
+      // Show the bar once the hero has scrolled away.
+      new IntersectionObserver(function (entries) {
+        heroVisible = entries[0].isIntersecting;
+        updateCta();
+      }, { threshold: 0 }).observe(hero);
+    }
+  }
+  function updateCta() {
+    if (!cta || anySubmitted) return;
+    cta.classList.toggle("show", !heroVisible && !waitlistVisible);
+  }
 })();

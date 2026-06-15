@@ -8,10 +8,9 @@
       name="description"
       content="A privacy-first readiness app for iOS & Android. Track the gear you rely on — medical, power, documents, firearms — and get one prioritised list of what needs your attention before it fails you. On-device, encrypted, built in Switzerland. Join the waitlist."
     />
-    <meta name="theme-color" content="#0f1216" />
+    <meta name="theme-color" content="#0c0f13" />
     <link rel="canonical" href="https://realhumanum.github.io/OpState-/" />
 
-    <!-- Open Graph / social cards (matters for Reddit & messaging previews) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="OpState" />
     <meta property="og:title" content="OpState — Know what you own. Stay ready." />
@@ -31,14 +30,20 @@
     />
     <meta name="twitter:image" content="https://realhumanum.github.io/OpState-/assets/og-image.png" />
 
+    <!-- Mark JS available BEFORE the stylesheet applies, so scroll-reveal only
+         hides content when JS can reveal it (no-JS users see everything). -->
+    <script>
+      document.documentElement.className += " js";
+    </script>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="fonts/inter-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="fonts/inter-semibold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/inter-bold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <!-- ===================== Header ===================== -->
-    <header class="site-header">
+    <header class="site-header" id="siteHeader">
       <div class="wrap">
         <a class="brand" href="#top" aria-label="OpState home">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)">
@@ -60,131 +65,99 @@
     <main id="top">
       <!-- ===================== Hero ===================== -->
       <section class="hero">
+        <div class="dotgrid"></div>
         <div class="wrap hero-grid">
           <div class="hero-copy">
-            <h1>Know what you own.<br />Stay&nbsp;ready.</h1>
-            <p class="sub">
-              Everything you rely on — ready when you need it. Private by default.
+            <span class="eyebrow reveal">In development · iOS &amp; Android</span>
+            <h1 class="reveal">Know what you own. <span class="accent">Stay&nbsp;ready.</span></h1>
+            <p class="sub reveal">
+              The gear you rely on fails quietly. OpState gives you <strong>one prioritised list</strong>
+              of what needs attention — before it lets you down.
             </p>
-            <div class="hero-cta">
-              <a class="btn btn-primary" href="#waitlist">Join the waitlist</a>
-              <a class="btn btn-ghost" href="#engine">See how it works</a>
+
+            <div class="reveal" data-wl>
+              <form
+                class="capture"
+                data-waitlist
+                action="https://app.kit.com/forms/9565153/subscriptions"
+                method="post"
+                novalidate
+              >
+                <div class="capture-row">
+                  <input type="email" name="email_address" inputmode="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address" required />
+                  <button type="submit" class="btn btn-primary">Join the waitlist</button>
+                </div>
+                <p class="micro">Free at launch · early members keep <b>Pro free for life</b> · no spam.</p>
+                <p class="wl-status" data-wl-status role="status" aria-live="polite"></p>
+              </form>
+              <div class="wl-success">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>
+                <h3>You're on the list 🎉</h3>
+                <p>We'll email you the moment OpState launches — your founder's Pro-for-life is locked in.</p>
+              </div>
             </div>
-            <div class="chips">
-              <span class="chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" /><path d="M12 18h.01" /></svg>
-                iOS &amp; Android · coming soon
-              </span>
-              <span class="chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                On-device &amp; encrypted
-              </span>
-              <span class="chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v2M16 3v2M3 21l5-13 4 7 3-5 6 11z" /></svg>
-                Built in Switzerland
-              </span>
+
+            <div class="chips reveal">
+              <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> On-device &amp; encrypted</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v2M16 3v2M3 21l5-13 4 7 3-5 6 11z" /></svg> Built in Switzerland</span>
+              <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M2 12h4M18 12h4M4.9 19.1l2.9-2.9M16.2 7.8l2.9-2.9" /></svg> No accounts · no tracking</span>
             </div>
           </div>
-          <div class="hero-phone">
-            <div class="phone">
-              <img
-                src="assets/screenshots/needs-attention-android.png"
-                alt="OpState 'Needs attention' dashboard: a maintenance service overdue, an expired item, a battery expiring soon, and an upcoming permit renewal."
-                width="290"
-                loading="eager"
-              />
+
+          <div class="device-stage reveal">
+            <div class="device">
+              <span class="island"></span>
+              <span class="vol"></span>
+              <div class="screen">
+                <img src="assets/screenshots/needs-attention-android.png" alt="OpState 'Needs attention' dashboard: a maintenance service overdue, an expired item, a battery expiring soon, and an upcoming permit renewal." width="296" loading="eager" />
+                <div class="gloss"></div>
+              </div>
             </div>
+            <div class="float-card fc-1"><span class="dot red"></span><span><b>Recoil spring</b> · service overdue</span></div>
+            <div class="float-card fc-2"><span class="dot amber"></span><span><b>9&nbsp;mm</b> · ~4 weeks left</span></div>
+            <div class="float-card fc-3"><span class="dot blue"></span><span><b>Carry permit</b> · renews soon</span></div>
           </div>
         </div>
       </section>
 
-      <!-- ===================== The problem ===================== -->
+      <!-- ===================== Problem ===================== -->
       <section class="alt" id="problem">
         <div class="wrap">
-          <div class="section-head center">
-            <span class="section-tag">The problem</span>
-            <h2>The things you rely on fail quietly</h2>
-            <p class="lede" style="margin-inline: auto">
-              Gear doesn't announce when it lapses. A spreadsheet won't warn you. The failure shows up
-              at the worst possible moment — on the range, in an emergency, or when you file a claim.
+          <div class="section-head center reveal">
+            <span class="eyebrow center">The problem</span>
+            <h2>It never fails when you're watching</h2>
+            <p class="lede">
+              Gear doesn't announce when it lapses, and a spreadsheet won't warn you. The failure
+              surfaces at the worst possible moment — on the range, in an emergency, or when you file a claim.
             </p>
           </div>
-          <div class="grid grid-3">
-            <div class="card problem-card">
-              <span class="dot red"></span>
-              <div>
-                <h3>An expired tourniquet</h3>
-                <p>Medications, hemostatic gauze and trauma kit pass their shelf life unnoticed.</p>
-              </div>
-            </div>
-            <div class="card problem-card">
-              <span class="dot amber"></span>
-              <div>
-                <h3>A dead battery</h3>
-                <p>The CR123 in the light or the smoke detector you only check when it's too late.</p>
-              </div>
-            </div>
-            <div class="card problem-card">
-              <span class="dot red"></span>
-              <div>
-                <h3>An out-of-spec spring</h3>
-                <p>5,000 rounds on a recoil spring with no count — reliability you can't see.</p>
-              </div>
-            </div>
-            <div class="card problem-card">
-              <span class="dot blue"></span>
-              <div>
-                <h3>A lapsed permit</h3>
-                <p>A carry permit, hunting licence or passport that quietly expired last month.</p>
-              </div>
-            </div>
-            <div class="card problem-card">
-              <span class="dot amber"></span>
-              <div>
-                <h3>Ammo running out</h3>
-                <p>No idea you're four weeks from empty at your current training cadence.</p>
-              </div>
-            </div>
-            <div class="card problem-card">
-              <span class="dot red"></span>
-              <div>
-                <h3>No proof for your insurer</h3>
-                <p>Something is lost or stolen and you have no serials, photos or valuations on hand.</p>
-              </div>
-            </div>
+          <div class="grid grid-3 reveal-stagger">
+            <div class="card problem-card"><span class="dot red"></span><div><h3>An expired tourniquet</h3><p>Medications, hemostatic gauze and trauma kit pass their shelf life unnoticed.</p></div></div>
+            <div class="card problem-card"><span class="dot amber"></span><div><h3>A dead battery</h3><p>The CR123 in the light, or the detector you only check when it's already too late.</p></div></div>
+            <div class="card problem-card"><span class="dot red"></span><div><h3>An out-of-spec spring</h3><p>5,000 rounds on a recoil spring with no count — reliability you can't see.</p></div></div>
+            <div class="card problem-card"><span class="dot blue"></span><div><h3>A lapsed permit</h3><p>A carry permit, hunting licence or passport that quietly expired last month.</p></div></div>
+            <div class="card problem-card"><span class="dot amber"></span><div><h3>Ammo running out</h3><p>No idea you're four weeks from empty at your current training cadence.</p></div></div>
+            <div class="card problem-card"><span class="dot red"></span><div><h3>No proof for your insurer</h3><p>Something is lost or stolen and you have no serials, photos or valuations on hand.</p></div></div>
           </div>
         </div>
       </section>
 
-      <!-- ===================== The wedge: Readiness Engine ===================== -->
+      <!-- ===================== Readiness Engine ===================== -->
       <section id="engine">
         <div class="wrap split">
-          <div>
-            <span class="section-tag">The Readiness Engine</span>
+          <div class="reveal">
+            <span class="eyebrow">The Readiness Engine</span>
             <h2>One list: what needs your attention</h2>
             <p class="lede">
-              OpState watches time and usage across <em>every</em> category and turns a passive
-              inventory into a prioritised, ranked dashboard. It's the one thing a spreadsheet
-              fundamentally can't do — and the bridge between the "gun-safe app" and the
-              "prepper-pantry app" that stay siloed today.
+              OpState watches time and usage across <em>every</em> category and turns a passive inventory
+              into a ranked, prioritised dashboard. It's the one thing a spreadsheet fundamentally can't
+              do — and the bridge between the "gun-safe app" and the "prepper-pantry app" that stay siloed today.
             </p>
             <ul class="engine-list">
-              <li>
-                <span class="dot red"></span>
-                <div><strong>Maintenance due</strong><span>Round-count and interval driven — "competition pistol at 5,000 rounds: replace the recoil spring."</span></div>
-              </li>
-              <li>
-                <span class="dot amber"></span>
-                <div><strong>Depletion forecasts</strong><span>"At your current training rate, 9&nbsp;mm runs out in ~4 weeks." Never a fabricated date — explicit when there isn't enough data.</span></div>
-              </li>
-              <li>
-                <span class="dot amber"></span>
-                <div><strong>Expiry &amp; rotation</strong><span>Medications, tourniquets, batteries, stored food and water, fuel stabiliser, extinguishers.</span></div>
-              </li>
-              <li>
-                <span class="dot blue"></span>
-                <div><strong>Renewals</strong><span>Carry permit, hunting licence, passport, insurance, registration paperwork.</span></div>
-              </li>
+              <li><span class="dot red"></span><div><strong>Maintenance due</strong><span>Round-count and interval driven — "competition pistol at 5,000 rounds: replace the recoil spring."</span></div></li>
+              <li><span class="dot amber"></span><div><strong>Depletion forecasts</strong><span>"At your training rate, 9&nbsp;mm runs out in ~4 weeks." Never a fabricated date — explicit when data is thin.</span></div></li>
+              <li><span class="dot amber"></span><div><strong>Expiry &amp; rotation</strong><span>Medications, tourniquets, batteries, stored food and water, fuel stabiliser, extinguishers.</span></div></li>
+              <li><span class="dot blue"></span><div><strong>Renewals</strong><span>Carry permit, hunting licence, passport, insurance, registration paperwork.</span></div></li>
             </ul>
             <div class="legend" aria-hidden="true">
               <span><span class="dot red"></span> Overdue</span>
@@ -192,13 +165,11 @@
               <span><span class="dot blue"></span> Upcoming</span>
             </div>
           </div>
-          <div class="phone">
-            <img
-              src="assets/screenshots/needs-attention-ios.png"
-              alt="The same prioritised readiness dashboard rendered on iOS, identical to Android."
-              width="290"
-              loading="lazy"
-            />
+          <div class="split-media reveal">
+            <div class="device" style="margin: 0 auto">
+              <span class="island"></span><span class="vol"></span>
+              <div class="screen"><img src="assets/screenshots/needs-attention-ios.png" alt="The prioritised readiness dashboard on iOS — identical to Android." width="296" loading="lazy" /><div class="gloss"></div></div>
+            </div>
           </div>
         </div>
       </section>
@@ -206,98 +177,60 @@
       <!-- ===================== Features ===================== -->
       <section class="alt" id="features">
         <div class="wrap">
-          <div class="section-head center">
-            <span class="section-tag">What's inside</span>
+          <div class="section-head center reveal">
+            <span class="eyebrow center">What's inside</span>
             <h2>Everything you rely on, in one encrypted place</h2>
-            <p class="lede" style="margin-inline: auto">
-              Firearms and ammo, medical, power and comms, documents, and any custom gear — with the
-              tools to keep it current.
-            </p>
+            <p class="lede">Firearms and ammo, medical, power and comms, documents, and any custom gear — with the tools to keep it current.</p>
           </div>
-          <div class="grid grid-3">
-            <div class="card feature">
-              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg></div>
-              <h3>Encrypted inventory</h3>
-              <p>Make, model, serial, calibre, value, photos, receipts — AES-256 on your device, unlocked by Face&nbsp;ID or fingerprint.</p>
-            </div>
-            <div class="card feature">
-              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1" /><rect width="5" height="5" x="16" y="3" rx="1" /><rect width="5" height="5" x="3" y="16" rx="1" /><path d="M21 16h-3a2 2 0 0 0-2 2v3" /><path d="M21 21v.01" /><path d="M12 7v3a2 2 0 0 1-2 2H7" /><path d="M3 12h.01" /><path d="M12 3h.01" /><path d="M12 16v.01" /><path d="M16 12h1" /><path d="M21 12v.01" /><path d="M12 21v-1" /></svg></div>
-              <h3>Containers &amp; QR</h3>
-              <p>Affix a QR code to a case, bin or safe. Scan it to jump straight to its contents and edit on the spot.</p>
-            </div>
-            <div class="card feature">
-              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="m9 14 2 2 4-4" /></svg></div>
-              <h3>Usage logging</h3>
-              <p>Log a range session or a consumption event — ammo decrements and round counts climb automatically.</p>
-            </div>
-            <div class="card feature">
-              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M16 13H8" /><path d="M16 17H8" /><path d="M10 9H8" /></svg></div>
-              <h3>Instant loss documentation</h3>
-              <p>One tap produces a clean PDF/CSV — serials, photos, valuations, locations — for a police report or insurance claim.</p>
-            </div>
-            <div class="card feature">
-              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M16 10h2" /><path d="M16 14h2" /><path d="M6.17 15a3 3 0 0 1 5.66 0" /><circle cx="9" cy="11" r="2" /></svg></div>
-              <h3>Document &amp; licence vault</h3>
-              <p>Permits, licences, registrations and IDs with expiry reminders — same encrypted-vault DNA.</p>
-            </div>
-            <div class="card feature">
-              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" /><path d="M9 6V5a3 3 0 0 1 6 0v1" /><path d="M9 14h6" /><path d="M9 18h6" /></svg></div>
-              <h3>Go-bag &amp; loadout checks</h3>
-              <p>Define kits, check readiness at a glance, and see what you chronically forget. Grab-and-go confidence.</p>
-            </div>
+          <div class="grid grid-3 reveal-stagger">
+            <div class="card feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg></div><h3>Encrypted inventory</h3><p>Make, model, serial, calibre, value, photos, receipts — AES-256 on your device, unlocked by Face&nbsp;ID or fingerprint.</p></div>
+            <div class="card feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1" /><rect width="5" height="5" x="16" y="3" rx="1" /><rect width="5" height="5" x="3" y="16" rx="1" /><path d="M21 16h-3a2 2 0 0 0-2 2v3" /><path d="M21 21v.01" /><path d="M12 7v3a2 2 0 0 1-2 2H7" /><path d="M3 12h.01" /><path d="M12 3h.01" /><path d="M12 16v.01" /><path d="M16 12h1" /><path d="M21 12v.01" /><path d="M12 21v-1" /></svg></div><h3>Containers &amp; QR</h3><p>Affix a QR code to a case, bin or safe. Scan it to jump straight to its contents and edit on the spot.</p></div>
+            <div class="card feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="m9 14 2 2 4-4" /></svg></div><h3>Usage logging</h3><p>Log a range session or a consumption event — ammo decrements and round counts climb automatically.</p></div>
+            <div class="card feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M16 13H8" /><path d="M16 17H8" /><path d="M10 9H8" /></svg></div><h3>Instant loss documentation</h3><p>One tap produces a clean PDF/CSV — serials, photos, valuations, locations — for a police report or insurance claim.</p></div>
+            <div class="card feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M16 10h2" /><path d="M16 14h2" /><path d="M6.17 15a3 3 0 0 1 5.66 0" /><circle cx="9" cy="11" r="2" /></svg></div><h3>Document &amp; licence vault</h3><p>Permits, licences, registrations and IDs with expiry reminders — same encrypted-vault DNA.</p></div>
+            <div class="card feature"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" /><path d="M9 6V5a3 3 0 0 1 6 0v1" /><path d="M9 14h6" /><path d="M9 18h6" /></svg></div><h3>Go-bag &amp; loadout checks</h3><p>Define kits, check readiness at a glance, and see what you chronically forget. Grab-and-go confidence.</p></div>
           </div>
         </div>
       </section>
 
       <!-- ===================== Privacy ===================== -->
       <section id="privacy">
-        <div class="wrap split">
-          <div>
-            <span class="section-tag">Private by architecture</span>
+        <div class="wrap split rev">
+          <div class="reveal">
+            <span class="eyebrow">Private by architecture</span>
             <h2>Your data never leaves your control</h2>
-            <p class="lede">
-              Privacy isn't a setting in OpState — it's the architecture. There is no company server
-              holding a database of who owns what, because there's no company server at all.
-            </p>
+            <p class="lede">Privacy isn't a setting in OpState — it's the architecture. There's no company server holding a database of who owns what, because there's no company server at all.</p>
             <ul class="privacy-points">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span><strong>On-device, AES-256.</strong> Your inventory is encrypted locally; keys live in the iOS Keychain / Android Keystore and unlock with biometrics.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span><strong>Your cloud, not ours.</strong> Backup goes to <em>your own</em> iCloud or Google Drive. We never receive it.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span><strong>No central database.</strong> No accounts to breach, no telemetry, no tracking. Crash reporting (if ever added) is opt-in only.</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg><span><strong>Swiss-built, GDPR &amp; FADP minded.</strong> Metric <em>and</em> imperial, multilingual, with user-configurable per-country profiles.</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span><span><strong>On-device, AES-256.</strong> Encrypted locally; keys live in the iOS Keychain / Android Keystore and unlock with biometrics.</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span><span><strong>Your cloud, not ours.</strong> Backup goes to <em>your own</em> iCloud or Google Drive. We never receive it.</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span><span><strong>No central database.</strong> No accounts to breach, no telemetry, no tracking. Crash reporting, if ever added, is opt-in only.</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span><span><strong>Swiss-built, GDPR &amp; FADP minded.</strong> Metric <em>and</em> imperial, multilingual, with user-configurable per-country profiles.</span></li>
             </ul>
-            <p class="footer-note" style="margin-top: 22px">
-              Even this page practices it: no cookies, no analytics, no third-party fonts or scripts.
-              The only thing that leaves your browser is your email — and only if you choose to join.
-            </p>
+            <p class="footer-note" style="margin-top: 22px">Even this page practises it: no cookies, no analytics, no third-party fonts or scripts. The only thing that ever leaves your browser is your email — and only if you choose to join.</p>
           </div>
-          <div class="phone">
-            <img
-              src="assets/screenshots/inventory-android.png"
-              alt="OpState inventory screen listing tracked gear with quantities and categories."
-              width="290"
-              loading="lazy"
-            />
+          <div class="split-media reveal">
+            <div class="device" style="margin: 0 auto">
+              <span class="island"></span><span class="vol"></span>
+              <div class="screen"><img src="assets/screenshots/inventory-android.png" alt="OpState inventory screen listing tracked gear with quantities and categories." width="296" loading="lazy" /><div class="gloss"></div></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ===================== Screenshot gallery ===================== -->
+      <!-- ===================== Gallery ===================== -->
       <section class="alt" id="screens">
         <div class="wrap">
-          <div class="section-head center">
-            <span class="section-tag">One app, two platforms</span>
+          <div class="section-head center reveal">
+            <span class="eyebrow center">One app, two platforms</span>
             <h2>Identical on iOS and Android</h2>
-            <p class="lede" style="margin-inline: auto">
-              One shared codebase means the two apps are indistinguishable — same screens, same type,
-              same icons. Swipe through the real builds.
-            </p>
+            <p class="lede">One shared codebase means the two apps are indistinguishable — same screens, type and icons. Swipe through the real builds.</p>
           </div>
-          <div class="gallery">
-            <div class="shot"><div class="phone"><img src="assets/screenshots/needs-attention-ios.png" alt="Readiness dashboard on iOS" width="220" loading="lazy" /></div><p class="shot-label">Needs attention · iOS</p></div>
-            <div class="shot"><div class="phone"><img src="assets/screenshots/inventory-android.png" alt="Inventory list on Android" width="220" loading="lazy" /></div><p class="shot-label">Inventory · Android</p></div>
-            <div class="shot"><div class="phone"><img src="assets/screenshots/log-android.png" alt="Logging a range session on Android" width="220" loading="lazy" /></div><p class="shot-label">Range log · Android</p></div>
-            <div class="shot"><div class="phone"><img src="assets/screenshots/containers-android.png" alt="Containers list on Android" width="220" loading="lazy" /></div><p class="shot-label">Containers · Android</p></div>
-            <div class="shot"><div class="phone"><img src="assets/screenshots/container-contents-ios.png" alt="Container QR code and contents on iOS" width="220" loading="lazy" /></div><p class="shot-label">Container QR · iOS</p></div>
+          <div class="gallery reveal">
+            <div class="shot"><div class="device"><span class="island"></span><div class="screen"><img src="assets/screenshots/needs-attention-ios.png" alt="Readiness dashboard on iOS" width="216" loading="lazy" /><div class="gloss"></div></div></div><p class="shot-label">Needs attention · iOS</p></div>
+            <div class="shot"><div class="device"><span class="island"></span><div class="screen"><img src="assets/screenshots/inventory-android.png" alt="Inventory list on Android" width="216" loading="lazy" /><div class="gloss"></div></div></div><p class="shot-label">Inventory · Android</p></div>
+            <div class="shot"><div class="device"><span class="island"></span><div class="screen"><img src="assets/screenshots/log-android.png" alt="Logging a range session on Android" width="216" loading="lazy" /><div class="gloss"></div></div></div><p class="shot-label">Range log · Android</p></div>
+            <div class="shot"><div class="device"><span class="island"></span><div class="screen"><img src="assets/screenshots/containers-android.png" alt="Containers list on Android" width="216" loading="lazy" /><div class="gloss"></div></div></div><p class="shot-label">Containers · Android</p></div>
+            <div class="shot"><div class="device"><span class="island"></span><div class="screen"><img src="assets/screenshots/container-contents-ios.png" alt="Container QR code and contents on iOS" width="216" loading="lazy" /><div class="gloss"></div></div></div><p class="shot-label">Container QR · iOS</p></div>
           </div>
         </div>
       </section>
@@ -305,17 +238,13 @@
       <!-- ===================== Build in the open ===================== -->
       <section id="progress">
         <div class="wrap split">
-          <div>
-            <span class="section-tag">Built in the open</span>
+          <div class="reveal">
+            <span class="eyebrow">Built in the open</span>
             <h2>This isn't a mockup — it's being built now</h2>
-            <p class="lede">
-              OpState is a real, working build, shipped milestone by milestone. The encrypted core,
-              the Readiness Engine, the apps on both platforms — done and verified. Join the waitlist
-              and you can opt into a short progress note each week.
-            </p>
-            <a class="btn btn-primary mt-cta" href="#waitlist">Get weekly progress updates</a>
+            <p class="lede">Every screen on this page is a real, working build, shipped milestone by milestone. The encrypted core, the Readiness Engine, the apps on both platforms — done and verified. Join the waitlist and opt into a short progress note each week.</p>
+            <a class="btn btn-primary btn-lg" href="#waitlist" style="margin-top: 26px">Get weekly progress updates</a>
           </div>
-          <div>
+          <div class="split-media reveal">
             <ul class="timeline">
               <li class="done"><span class="ms">Shared core &amp; Readiness Engine<span class="tag">Done</span></span><p>Domain models, unit conversion, the deterministic engine + its executable test spec.</p></li>
               <li class="done"><span class="ms">Encrypted storage<span class="tag">Done</span></span><p>AES-256 SQLCipher on both platforms; keys in Keychain / Keystore; biometric unlock.</p></li>
@@ -329,70 +258,52 @@
       </section>
 
       <!-- ===================== Founder offer ===================== -->
-      <section class="alt">
+      <section class="offer-wrap">
         <div class="wrap">
-          <div class="offer">
-            <span class="section-tag">Founder's offer</span>
+          <div class="offer reveal">
+            <span class="glow"></span>
+            <span class="badge">★ Founder's offer</span>
             <h2>Join now, keep Pro free for life</h2>
-            <p>
-              OpState launches free and worldwide. Pro arrives later — but everyone who joins during
-              early access is grandfathered to <strong>Pro, free, for life.</strong> It's our thank-you
-              to the people who backed an unknown app early.
-            </p>
-            <a class="btn btn-primary" href="#waitlist">Claim your founder spot</a>
+            <p>OpState launches free and worldwide. Pro arrives later — but everyone who joins during early access is grandfathered to <strong>Pro, free, for life.</strong> It's our thank-you to the people who backed an unknown app early. This tier won't exist after launch.</p>
+            <a class="btn btn-primary btn-lg" href="#waitlist">Claim your founder spot</a>
           </div>
         </div>
       </section>
 
       <!-- ===================== Waitlist ===================== -->
       <section class="waitlist" id="waitlist">
-        <div class="wrap">
-          <div class="waitlist-card" id="waitlist-card">
+        <div class="dotgrid"></div>
+        <div class="wrap waitlist-inner">
+          <div class="reveal">
+            <span class="eyebrow">Join the waitlist</span>
             <h2>Be there at launch</h2>
-            <p>
-              One email the day OpState goes live. Optionally, a short build update each week. No spam,
-              ever — unsubscribe in one click.
-            </p>
+            <ul class="waitlist-why">
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span><span>One email the day it goes live — be first in.</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span><span><strong>Pro free for life</strong> — locked in for early members.</span></li>
+              <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg></span><span>Optional weekly build updates — shape what gets built next.</span></li>
+            </ul>
+          </div>
 
-            <!-- Kit (ConvertKit) custom form — wired to form 9565153 ("Pine form" / OpState
-                 waitlist). Posts email_address + fields[weekly_updates] to Kit; js/waitlist.js
-                 handles the inline success and a native-POST fallback. -->
-            <form
-              class="wl-form"
-              id="waitlist-form"
-              action="https://app.kit.com/forms/9565153/subscriptions"
-              method="post"
-              novalidate
-            >
+          <div class="waitlist-card reveal" data-wl>
+            <h3>Reserve your spot</h3>
+            <p>No spam, ever. Unsubscribe in one click.</p>
+            <form class="wl-form" data-waitlist action="https://app.kit.com/forms/9565153/subscriptions" method="post" novalidate>
               <div class="wl-row">
-                <input
-                  type="email"
-                  name="email_address"
-                  inputmode="email"
-                  autocomplete="email"
-                  placeholder="you@example.com"
-                  aria-label="Email address"
-                  required
-                />
-                <button type="submit" class="btn btn-primary" id="waitlist-submit">Join the waitlist</button>
+                <input type="email" name="email_address" inputmode="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address" required />
+                <button type="submit" class="btn btn-primary">Join</button>
               </div>
               <label class="wl-check">
-                <input type="checkbox" name="fields[weekly_updates]" id="weekly-updates" value="yes" />
+                <input type="checkbox" name="fields[weekly_updates]" value="yes" />
                 <span>Also send me a short weekly build update while OpState is in development.</span>
               </label>
-              <p class="wl-status" id="waitlist-status" role="status" aria-live="polite"></p>
+              <p class="wl-status" data-wl-status role="status" aria-live="polite"></p>
             </form>
-
-            <div class="wl-success" id="waitlist-success">
+            <div class="wl-success">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>
               <h3>You're on the list 🎉</h3>
               <p>We'll email you the moment OpState launches — plus a short build note each week if you opted in. Keep an eye on your inbox (peek in spam, just in case), and your founder's Pro-for-life is locked in.</p>
             </div>
-
-            <p class="wl-fine">
-              We store only your email and your update preference, to notify you. Never shared, never
-              sold. See the <a href="privacy.html">privacy notice</a>.
-            </p>
+            <p class="wl-fine">We store only your email and update preference, to notify you. Never shared, never sold. See the <a href="privacy.html">privacy notice</a>.</p>
           </div>
         </div>
       </section>
@@ -400,35 +311,17 @@
       <!-- ===================== FAQ ===================== -->
       <section id="faq">
         <div class="wrap">
-          <div class="section-head center">
-            <span class="section-tag">Questions</span>
+          <div class="section-head center reveal">
+            <span class="eyebrow center">Questions</span>
             <h2>Good to know</h2>
           </div>
-          <div class="faq">
-            <details>
-              <summary>When does it launch?</summary>
-              <p>Soon — the apps run on both platforms today; what's left before release is notifications and a richer export. Join the waitlist for the date the moment it's set, and opt into weekly updates to follow along.</p>
-            </details>
-            <details>
-              <summary>What will it cost?</summary>
-              <p>OpState launches free and worldwide with everything unlocked. A Pro tier comes later — but join during early access and you keep Pro free for life. No card, no commitment to join the waitlist.</p>
-            </details>
-            <details>
-              <summary>Is my data really private?</summary>
-              <p>Yes — by design. Your inventory is AES-256 encrypted on your device, keys held in the iOS Keychain / Android Keystore, and any backup goes to your own iCloud or Google Drive. There is no central server, no account, and no tracking. We literally can't see your data.</p>
-            </details>
-            <details>
-              <summary>iOS and Android?</summary>
-              <p>Both, built together from one shared codebase so they look and behave identically. No "Android version six months later."</p>
-            </details>
-            <details>
-              <summary>Is this a "gun app"?</summary>
-              <p>It's a readiness and inventory app for anyone with gear that matters — medical, power and comms, documents, valuables — and yes, firearms and ammo if you have them. No purchase features, no legal advice; just tracking and reminders you configure yourself.</p>
-            </details>
-            <details>
-              <summary>Why join the waitlist now?</summary>
-              <p>Two reasons: you get notified the day it's live, and you lock in the founder's Pro-for-life tier that won't exist after launch. It also tells us this is worth finishing — your signup genuinely shapes what gets built next.</p>
-            </details>
+          <div class="faq reveal">
+            <details><summary>When does it launch?</summary><p>Soon — the apps run on both platforms today; what's left before release is notifications and a richer export. Join the waitlist for the date the moment it's set, and opt into weekly updates to follow along.</p></details>
+            <details><summary>What will it cost?</summary><p>OpState launches free and worldwide with everything unlocked. A Pro tier comes later — but join during early access and you keep Pro free for life. No card, no commitment to join the waitlist.</p></details>
+            <details><summary>Is my data really private?</summary><p>Yes — by design. Your inventory is AES-256 encrypted on your device, keys held in the iOS Keychain / Android Keystore, and any backup goes to your own iCloud or Google Drive. There's no central server, no account, and no tracking. We literally can't see your data.</p></details>
+            <details><summary>iOS and Android?</summary><p>Both, built together from one shared codebase so they look and behave identically. No "Android version six months later."</p></details>
+            <details><summary>Is this a "gun app"?</summary><p>It's a readiness and inventory app for anyone with gear that matters — medical, power and comms, documents, valuables — and yes, firearms and ammo if you have them. No purchase features, no legal advice; just tracking and reminders you configure yourself.</p></details>
+            <details><summary>Why join the waitlist now?</summary><p>Two reasons: you get notified the day it's live, and you lock in the founder's Pro-for-life tier that won't exist after launch. It also tells us this is worth finishing — your signup genuinely shapes what gets built next.</p></details>
           </div>
         </div>
       </section>
@@ -450,13 +343,15 @@
             <a href="mailto:hello@opstate.app">Contact</a>
           </nav>
         </div>
-        <p class="footer-note">
-          Built in Switzerland · Private by architecture · © 2026 OpState. OpState is a personal
-          readiness and inventory tool. It does not facilitate the purchase of any item and provides
-          no legal advice; country profiles are user-configured checklists only.
-        </p>
+        <p class="footer-note">Built in Switzerland · Private by architecture · © 2026 OpState. OpState is a personal readiness and inventory tool. It does not facilitate the purchase of any item and provides no legal advice; country profiles are user-configured checklists only.</p>
       </div>
     </footer>
+
+    <!-- ===================== Sticky mobile CTA ===================== -->
+    <div class="mobile-cta" id="mobileCta">
+      <div><strong>Join the waitlist</strong><span>Free Pro for life · early access</span></div>
+      <a class="btn btn-primary" href="#waitlist">Join</a>
+    </div>
 
     <script src="js/waitlist.js" defer></script>
   </body>
