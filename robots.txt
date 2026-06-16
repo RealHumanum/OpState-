@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /privacy.html
 
-Sitemap: https://realhumanum.github.io/OpState-/sitemap.xml
+Sitemap: https://realhumanum.github.io/opstate-site/sitemap.xml
